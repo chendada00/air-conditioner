@@ -53,7 +53,7 @@ const Copyright: React.FC = () => {
       <div className="ac-text flex justify-center items-center m-2">
         {'© '}
         <a href={pkg.repository.url} target="_blank" rel="noreferrer">
-          Yun Air Conditioner
+          伴随
         </a>
         <a
           className="inline-flex"
@@ -64,13 +64,13 @@ const Copyright: React.FC = () => {
         >
           <div className="i-mdi-cloud text-sm mx-1" />
         </a>
-        <a href={pkg.author.url} target="_blank" rel="noreferrer">
-          云游君 @
-          {pkg.author.name}
-        </a>
+        {/*<a href={pkg.author.url} target="_blank" rel="noreferrer">*/}
+        {/*  云游君 @*/}
+        {/*  {pkg.author.name}*/}
+        {/*</a>*/}
       </div>
       <p>
-        {`2019 - ${new Date().getFullYear()}`}
+        {`${new Date().getFullYear()}`}
       </p>
       <div className="text-center">
         {socialList.map(item => (
