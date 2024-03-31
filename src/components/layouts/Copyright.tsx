@@ -69,22 +69,22 @@ const Copyright: React.FC = () => {
         {/*  {pkg.author.name}*/}
         {/*</a>*/}
       </div>
-      <p>
-        {`${new Date().getFullYear()}`}
-      </p>
-      <div className="text-center">
-        {socialList.map(item => (
-          <Tooltip title={item.label} arrow key={item.type}>
-            <IconButton
-              sx={{ color: item.color }}
-              href={item.href}
-              target="_blank"
-            >
-              <div className={`${item.icon} text-lg`} />
-            </IconButton>
-          </Tooltip>
-        ))}
-      </div>
+      {/*<p>*/}
+      &emsp;{`${new Date().getFullYear()}`}
+      {/*</p>*/}
+      {/*<div className="text-center">*/}
+      {/*  {socialList.map(item => (*/}
+      {/*    <Tooltip title={item.label} arrow key={item.type}>*/}
+      {/*      <IconButton*/}
+      {/*        sx={{ color: item.color }}*/}
+      {/*        href={item.href}*/}
+      {/*        target="_blank"*/}
+      {/*      >*/}
+      {/*        <div className={`${item.icon} text-lg`} />*/}
+      {/*      </IconButton>*/}
+      {/*    </Tooltip>*/}
+      {/*  ))}*/}
+      {/*</div>*/}
     </div>
   )
 }
