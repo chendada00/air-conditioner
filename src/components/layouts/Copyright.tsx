@@ -53,7 +53,7 @@ const Copyright: React.FC = () => {
       <div className="ac-text flex justify-center items-center m-2">
         {'© '}
         <a href={pkg.repository.url} target="_blank" rel="noreferrer">
-          @伴随
+          @伴随&emsp;
         </a>
         <svg t="1711865361544" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
              p-id="1850" width="17" height="17">
@@ -98,9 +98,10 @@ const Copyright: React.FC = () => {
         {/*  云游君 @*/}
         {/*  {pkg.author.name}*/}
         {/*</a>*/}
+        &emsp;{`${new Date().getFullYear()}`}
       </div>
       {/*<p>*/}
-      &emsp;{`${new Date().getFullYear()}`}
+
       {/*</p>*/}
       {/*<div className="text-center">*/}
       {/*  {socialList.map(item => (*/}
