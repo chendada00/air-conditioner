@@ -29,8 +29,8 @@ const ProTip: FC = () => {
     <div
       className="m-6 text-center flex justify-center items-center"
     >
-      <div className="i-ic:outline-emoji-objects text-xl cursor-pointer" style={{ color: '#f3a83b' }} onClick={toggleDark}></div>
-      {/*Tip: 为你的夏日带去*/}
+      <div className="i-ic:outline-emoji-objects text-xl cursor-pointer" style={{ color: '#f3a83b' }}></div>
+      Tip: 为你的夏日带去清凉
       {/*{import.meta.env.VITE_DISABLE_ADSENSE*/}
       {/*  ? (*/}
       {/*      '清凉'*/}
