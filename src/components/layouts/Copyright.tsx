@@ -94,50 +94,29 @@ const Copyright: React.FC = () => {
               d="M646.3 740.6c-4.3 6.4-12.8 17.1-19.2 29.9-8.5 17.1-6.4 36.3-4.3 51.2l2.1 6.4 6.4-2.1 10.7-4.3-21.3 29.9-14.9-29.9 6.4 4.3 10.7 6.4-4.3-10.7c-2.1-10.7-6.4-23.5-8.5-36.3-4.3-23.5 6.4-40.6 10.7-44.8h25.5m10.7-4.2z m0 0h-38.4s-19.2 19.2-12.8 51.2c2.1 14.9 6.4 27.7 8.5 36.3L593 813.2l25.6 51.2 36.3-51.2-27.7 10.7c-2.1-12.8-4.3-32 4.3-49.1 12.7-25.6 25.5-38.4 25.5-38.4z m-2.1 76.8z"
               fill="" p-id="1862"></path>
         </svg>
-        <div className="i-mdi-cloud text-sm mx-1"/>
-      </a>
-      {/*<a href={pkg.author.url} target="_blank" rel="noreferrer">*/}
-      {/*  云游君 @*/}
-      {/*  {pkg.author.name}*/}
-      {/*</a>*/}
+        {/*<a href={pkg.author.url} target="_blank" rel="noreferrer">*/}
+        {/*  云游君 @*/}
+        {/*  {pkg.author.name}*/}
+        {/*</a>*/}
+      </div>
+      {/*<p>*/}
+      &emsp;{`${new Date().getFullYear()}`}
+      {/*</p>*/}
+      {/*<div className="text-center">*/}
+      {/*  {socialList.map(item => (*/}
+      {/*    <Tooltip title={item.label} arrow key={item.type}>*/}
+      {/*      <IconButton*/}
+      {/*        sx={{ color: item.color }}*/}
+      {/*        href={item.href}*/}
+      {/*        target="_blank"*/}
+      {/*      >*/}
+      {/*        <div className={`${item.icon} text-lg`} />*/}
+      {/*      </IconButton>*/}
+      {/*    </Tooltip>*/}
+      {/*  ))}*/}
+      {/*</div>*/}
     </div>
-  {/*<p>*/
-  }
-&
-  emsp;
-  {
-    `${new Date().getFullYear()}`
-  }
-  {/*</p>*/
-  }
-  {/*<div className="text-center">*/
-  }
-  {/*  {socialList.map(item => (*/
-  }
-  {/*    <Tooltip title={item.label} arrow key={item.type}>*/
-  }
-  {/*      <IconButton*/
-  }
-  {/*        sx={{ color: item.color }}*/
-  }
-  {/*        href={item.href}*/
-  }
-  {/*        target="_blank"*/
-  }
-  {/*      >*/
-  }
-  {/*        <div className={`${item.icon} text-lg`} />*/
-  }
-  {/*      </IconButton>*/
-  }
-  {/*    </Tooltip>*/
-  }
-  {/*  ))}*/
-  }
-  {/*</div>*/
-  }
-</div>
-)
+  )
 }
 
 export default Copyright
