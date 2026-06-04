@@ -1,27 +1,16 @@
+import type { AcAction, AcMode, AcState } from '@air-conditioner/core'
 import type { FC, PropsWithChildren } from 'react'
-import type { AcMode, AcState } from '~/types'
+import {
+  acReducer,
+  acStorageKey,
+  defaultAcState as defaultState,
+  getAcActionNotification,
+} from '@air-conditioner/core'
 import { createContext, useContext, useReducer } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import { useToastCtx } from './toast'
 
-export const acStorageKey = 'ac:state'
-
-type AcAction = { type: 'increment' | 'decrement' | 'toggleStatus' } | {
-  type: 'status'
-  status: AcState['status']
-} | {
-  type: 'mode'
-  mode: AcState['mode']
-} | {
-  type: 'update'
-  payload: Partial<AcState>
-}
-
-export const defaultState: AcState = {
-  mode: 'cold',
-  status: false,
-  temperature: 26,
-}
+export { acStorageKey, defaultState }
 
 const AcContext = createContext<{
   state: AcState
@@ -32,39 +21,13 @@ const AcContext = createContext<{
 export const AcProvider: FC<PropsWithChildren> = (props) => {
   const [initState, setAcState] = useLocalStorage<AcState>(acStorageKey, defaultState)
 
-  function acReducer(state: AcState, action: AcAction) {
-    let val = { ...state }
-    switch (action.type) {
-      case 'increment':
-        val.temperature += 1
-        break
-      case 'decrement':
-        val.temperature -= 1
-        break
-      case 'toggleStatus':
-        val.status = !val.status
-        break
-      case 'status':
-        val.status = action.status
-        break
-      case 'mode':
-        val.mode = action.mode
-        break
-      case 'update':
-        val = {
-          ...state,
-          ...action.payload,
-        }
-        break
-      default:
-        throw new Error('Unexpected Ac Action')
-    }
-
+  function reducer(state: AcState, action: AcAction) {
+    const val = acReducer(state, action)
     setAcState(val)
     return val
   }
 
-  const [state, dispatch] = useReducer(acReducer, initState)
+  const [state, dispatch] = useReducer(reducer, initState)
   return (
     <AcContext.Provider value={{ state, dispatch }}>
       {props.children}
@@ -92,36 +55,19 @@ export function useAc() {
       dispatch({ type: 'toggleStatus' })
     },
     toggleMode(mode: AcMode) {
-      dispatch({ type: 'mode', mode })
+      const action: AcAction = { type: 'mode', mode }
+      const nextState = acReducer(state, action)
+      const notification = getAcActionNotification(state, nextState, action)
 
-      const currentTemperature = state.temperature
-      const goodColdTemperature = 26
-      const goodHotTemperature = 20
+      dispatch(action)
 
-      const recommendedSlogan = (mode: AcMode, temperature: number) =>
-        `建议将空调的制${
-          mode === 'cold' ? '冷' : '热'
-        }温度调至 ${temperature} 度以${
-          mode === 'cold' ? '上' : '下'
-        }，为节能减排贡献一份力量！`
-
-      if (mode === 'cold' && currentTemperature < goodColdTemperature) {
+      if (notification) {
         dispatchToast({
           type: 'update',
           payload: {
-            message: recommendedSlogan('cold', goodColdTemperature),
+            message: notification.message,
             open: true,
-            severity: 'success',
-          },
-        })
-      }
-      else if (mode === 'hot' && currentTemperature > goodHotTemperature) {
-        dispatchToast({
-          type: 'update',
-          payload: {
-            message: recommendedSlogan('hot', goodHotTemperature),
-            open: true,
-            severity: 'success',
+            severity: notification.severity,
           },
         })
       }

@@ -1,3 +1,4 @@
+import { createAcAudioController } from '@air-conditioner/core'
 import { blue, green, red } from '@mui/material/colors'
 
 import React from 'react'
@@ -8,68 +9,23 @@ import RCButton from './RCButton'
 import { useAcTemperature } from './temperature'
 import './index.scss'
 
-let playStartSoundTimeoutId: any
-let playWorkSoundTimeoutId: any
-let playWorkSoundIntervalId: any
+let audioController: ReturnType<typeof createAcAudioController> | undefined
 
-/**
- * 播放空调启动声音
- */
-function playStartSound() {
-  const acStart = document.getElementById('ac-work') as HTMLAudioElement
-  acStart.load()
-  acStart.play()
+function getAudioController() {
+  audioController ||= createAcAudioController({
+    start: document.getElementById('ac-work') as HTMLAudioElement | null,
+    work: document.getElementById('air-extractor-fan') as HTMLAudioElement | null,
+    beep: document.getElementById('di') as HTMLAudioElement | null,
+  })
 
-  playStartSoundTimeoutId = setTimeout(() => {
-    playWorkSound()
-  }, 8000)
-}
-
-// 噪音起始时间
-const noiseStartTime = 2
-// 噪音持续时间
-const noiseDuration = 56
-
-/**
- * 播放空调工作声音
- */
-function playWorkSound() {
-  const acWork = document.getElementById(
-    'air-extractor-fan',
-  ) as HTMLAudioElement
-  acWork.load()
-  acWork.play()
-
-  playWorkSoundTimeoutId = setTimeout(() => {
-    playWorkSoundIntervalId = setInterval(() => {
-      acWork.currentTime = noiseStartTime
-    }, noiseDuration * 1000)
-  }, noiseStartTime * 1000)
+  return audioController
 }
 
 /**
  * 切换空调工作状态
  */
 function toggleAC(status: boolean) {
-  if (status) {
-    (document.getElementById('ac-work') as HTMLAudioElement).load()
-    const acWork = document.getElementById(
-      'air-extractor-fan',
-    ) as HTMLAudioElement
-    if (playStartSoundTimeoutId)
-      clearTimeout(playStartSoundTimeoutId)
-
-    if (playWorkSoundTimeoutId)
-      clearTimeout(playWorkSoundTimeoutId)
-
-    if (playWorkSoundIntervalId)
-      clearInterval(playWorkSoundIntervalId)
-
-    acWork.currentTime = noiseStartTime + noiseDuration
-  }
-  else {
-    playStartSound()
-  }
+  getAudioController().toggleStatusAudio(status)
 }
 
 const SOUND_DI_PATH = getAssetsUrl('/assets/audio/di.m4a')
@@ -112,7 +68,7 @@ const RemoteControl: React.FC = () => {
           <div className="i-ic-round-ac-unit text-2xl" />
         </RCButton>
         <RCButton
-          aria-label="add"
+          aria-label="power"
           onClick={() => {
             toggleAC(ac.status)
             toggleStatus()

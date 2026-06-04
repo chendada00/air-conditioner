@@ -1,11 +1,11 @@
-FROM node:lts-alpine as builder
+FROM node:lts-alpine AS builder
 
-RUN npm install -g pnpm
+RUN corepack enable
 
 WORKDIR /app
 COPY . .
 
-RUN pnpm install && npm run build
+RUN pnpm install --frozen-lockfile && pnpm run react:build
 
 FROM nginx:alpine
 

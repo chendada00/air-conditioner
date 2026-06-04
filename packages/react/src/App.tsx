@@ -35,7 +35,7 @@ function consoleInfo(
  */
 function Loading() {
   return (
-    <p className="text-center"><div className="i-mdi-loading animate-spin m-auto text-8xl mt-20" /></p>
+    <div className="text-center"><div className="i-mdi-loading animate-spin m-auto text-8xl mt-20" /></div>
   )
 }
 

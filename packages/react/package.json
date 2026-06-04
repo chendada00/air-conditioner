@@ -15,9 +15,25 @@
     "type": "git",
     "url": "https://github.com/YunYouJun/air-conditioner"
   },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "pnpm run build:lib",
+    "build:app": "vite build",
+    "build:lib": "tsdown && cp src/lib/style.css dist/style.css",
     "serve": "vite preview",
     "lint": "eslint \"**/*.{tsx,ts,js}\"",
     "lint:fix": "eslint \"**/*.{tsx,ts,js}\" --fix",
@@ -35,9 +51,12 @@
       "last 1 safari version"
     ]
   },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
   "dependencies": {
-    "react": "catalog:",
-    "react-dom": "catalog:",
+    "@air-conditioner/core": "workspace:*",
     "react-ga": "catalog:",
     "react-gtm-module": "catalog:",
     "react-router-dom": "catalog:",
@@ -55,7 +74,10 @@
     "@types/react-gtm-module": "catalog:",
     "@types/react-router-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "react-transition-group": "catalog:",
+    "tsdown": "catalog:",
     "unocss": "catalog:",
     "usehooks-ts": "catalog:",
     "vite": "catalog:",

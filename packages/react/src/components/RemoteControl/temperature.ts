@@ -1,8 +1,14 @@
+import type { AcAction } from '@air-conditioner/core'
+import {
+  acReducer,
+  getAcActionNotification,
+  maxTemperature,
+  minTemperature,
+} from '@air-conditioner/core'
 import { useAcCtx } from '~/context'
 import { useToastCtx } from '~/context/toast'
 
-export const maxTemperature = 31
-export const minTemperature = 16
+export { maxTemperature, minTemperature }
 
 export function useAcTemperature() {
   const { state, dispatch } = useAcCtx()
@@ -12,16 +18,19 @@ export function useAcTemperature() {
    * 增加温度
    */
   const increase = () => {
-    if (state.temperature < maxTemperature) {
-      dispatch({ type: 'increment' })
-    }
-    else {
+    const action: AcAction = { type: 'increment' }
+    const nextState = acReducer(state, action)
+    const notification = getAcActionNotification(state, nextState, action)
+
+    dispatch(action)
+
+    if (notification) {
       dispatchToast({
         type: 'update',
         payload: {
-          message: '已经是最大温度啦！',
+          message: notification.message,
           open: true,
-          severity: 'error',
+          severity: notification.severity,
         },
       })
     }
@@ -31,16 +40,19 @@ export function useAcTemperature() {
    * 降低温度
    */
   const decrease = () => {
-    if (state.temperature > minTemperature) {
-      dispatch({ type: 'decrement' })
-    }
-    else {
+    const action: AcAction = { type: 'decrement' }
+    const nextState = acReducer(state, action)
+    const notification = getAcActionNotification(state, nextState, action)
+
+    dispatch(action)
+
+    if (notification) {
       dispatchToast({
         type: 'update',
         payload: {
-          message: '已经是最小温度啦！',
+          message: notification.message,
           open: true,
-          severity: 'error',
+          severity: notification.severity,
         },
       })
     }

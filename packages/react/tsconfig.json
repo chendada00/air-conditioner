@@ -8,11 +8,10 @@
       "ESNext"
     ],
     "useDefineForClassFields": true,
-    "baseUrl": ".",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["./src/*"]
     },
     "resolveJsonModule": true,
     "types": [
@@ -24,6 +23,7 @@
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": false,
+    "ignoreDeprecations": "6.0",
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "skipLibCheck": false

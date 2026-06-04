@@ -1,6 +1,7 @@
 import type { AcState } from '~/types'
+import { acStorageKey, defaultAcState } from '@air-conditioner/core'
 import { useEffect } from 'react'
-import { acStorageKey, defaultState, useAcCtx } from '~/context'
+import { useAcCtx } from '~/context'
 
 /**
  * 通过监听 storage 来更新状态
@@ -14,7 +15,7 @@ export function useDetectStorage() {
       if (e.key === acStorageKey) {
         dispatch({
           type: 'update',
-          payload: e.newValue ? JSON.parse(e.newValue) as AcState : defaultState,
+          payload: e.newValue ? JSON.parse(e.newValue) as AcState : defaultAcState,
         })
       }
     }
