@@ -106,7 +106,6 @@ VITE_DISABLE_ADSENSE=true
   - [x] 音效
     - [x] 按钮
     - [x] 工作声
-    - [ ] 接入 [喜马拉雅](https://m.ximalaya.com/sleepaudio/6?mixedTrackIds=331526646&utm_source=smxkt) 更多音效
 - [x] 适应系统的亮暗模式
 
 ## Ref

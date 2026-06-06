@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import {
+  acModeIcons,
   acReducer,
   acStorageKey,
   createAirConditionerStore,
@@ -7,6 +8,7 @@ import {
   defaultAcState,
   maxTemperature,
   minTemperature,
+  resolveAcAudioAssets,
 } from '../src'
 
 describe('@air-conditioner/core', () => {
@@ -55,6 +57,23 @@ describe('@air-conditioner/core', () => {
     store.dispatch({ type: 'toggleStatus' })
 
     expect(JSON.parse(storage.getItem(acStorageKey) || '{}')).toMatchObject({ status: true })
+  })
+
+  it('exposes mode icons for view layers', () => {
+    expect(acModeIcons).toEqual({ cold: '❄️', hot: '☀️' })
+  })
+
+  it('resolves audio asset urls from a base path', () => {
+    expect(resolveAcAudioAssets()).toEqual({
+      beep: '/assets/audio/di.m4a',
+      start: '/assets/audio/ac-work.m4a',
+      work: '/assets/audio/air-extractor-fan.m4a',
+    })
+    expect(resolveAcAudioAssets('/ac/audio/', 'mp3')).toEqual({
+      beep: '/ac/audio/di.mp3',
+      start: '/ac/audio/ac-work.mp3',
+      work: '/ac/audio/air-extractor-fan.mp3',
+    })
   })
 
   it('does not throw when storage is unavailable or failing', () => {

@@ -100,7 +100,6 @@ VITE_DISABLE_ADSENSE=true
   - [x] Sound Effects
     - [x] Buttons
     - [x] Running sound
-    - [ ] Import more sounds from [喜马拉雅](https://m.ximalaya.com/sleepaudio/6?mixedTrackIds=331526646&utm_source=smxkt)
 - [x] Follow system color schemes
 
 ## Ref

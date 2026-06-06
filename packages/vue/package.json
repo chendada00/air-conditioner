@@ -32,7 +32,7 @@
     "dev": "vite",
     "build": "pnpm run build:lib",
     "build:app": "vite build --outDir dist-app",
-    "build:lib": "tsdown && cp src/style.css dist/style.css",
+    "build:lib": "tsdown && cp src/style.css dist/style.css && cp -r public/assets dist/assets && cp public/yun-logo.svg dist/yun-logo.svg",
     "serve": "vite preview dist-app",
     "typecheck": "vue-tsc --noEmit"
   },

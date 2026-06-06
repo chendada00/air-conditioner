@@ -3,7 +3,7 @@ import useDark from '~/hooks/useDark'
 import { adsenseLink, jumpToAdsense } from '~/utils/adsense'
 
 /**
- * 喜马拉雅链接
+ * 广告导流链接
  * @param props
  */
 const AdsenseLink: FC<{ text: string }> = (props) => {
@@ -17,7 +17,7 @@ const AdsenseLink: FC<{ text: string }> = (props) => {
       }}
       rel="noreferrer"
     >
-      {props.text || '喜马拉雅'}
+      {props.text}
     </a>
   )
 }

@@ -1,11 +1,40 @@
+/* 数码管字体（与 React 主应用一致）。
+   字体文件需由宿主在 assetsBaseUrl/fonts 下提供，缺失时回退到等宽字体。 */
+@font-face {
+  font-family: "Digital-7 Mono";
+  src: url("/assets/fonts/digital-7-mono.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --acw-text-color: #141414;
+  --acw-border-color: #e0e0e0;
+  --acw-display-color: #cccccc;
+  --acw-wind-color: #bbbbbb;
+  --acw-led-on: #38f709;
+}
+
+html.dark .acw-root,
+.acw-root.dark {
+  --acw-text-color: #fafafa;
+}
+
+@media (prefers-color-scheme: dark) {
+  .acw-root:not(.light) {
+    --acw-text-color: #fafafa;
+  }
+}
+
+/* ---------------------------------- 布局 ---------------------------------- */
 .acw-root {
   box-sizing: border-box;
-  display: grid;
-  gap: 16px;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 420px;
-  color: #1f2933;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  margin: 0 auto;
+  color: var(--acw-text-color);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .acw-root *,
@@ -14,145 +43,241 @@
   box-sizing: inherit;
 }
 
+/* 冷 / 热 色温（仅开机时） */
+.acw-root[data-status="on"][data-mode="cold"] {
+  filter: saturate(90%);
+}
+
+.acw-root[data-status="on"][data-mode="hot"] {
+  filter: saturate(110%);
+}
+
 .acw-unit {
   width: min(100%, 360px);
 }
 
+/* --------------------------------- 机身 ---------------------------------- */
 .acw-shell {
   position: relative;
   height: 152px;
-  border: 1px solid #d9dee7;
-  border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 20px;
   background: #fff;
-  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+  border: 1px solid var(--acw-border-color);
+  border-radius: 10px 10px 20px 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
-.acw-badge {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  display: grid;
-  grid-template-columns: repeat(3, 4px);
-  gap: 4px;
-  padding: 12px;
-  border-radius: 3px;
-  background: #4ea5f5;
-}
-
-.acw-badge span {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #fff;
-}
-
-.acw-display {
-  position: absolute;
-  top: 28px;
-  right: 28px;
-  color: #9aa3ad;
-  text-align: right;
-}
-
-.acw-display strong {
-  display: inline-block;
-  min-width: 48px;
-  font-size: 42px;
-  line-height: 1;
-}
-
-.acw-display small {
-  font-size: 18px;
-}
-
-.acw-mode {
-  display: block;
-  margin-bottom: 3px;
-  font-size: 12px;
-  text-transform: uppercase;
-}
-
+/* 中央 Logo */
 .acw-logo {
-  position: absolute;
-  right: 0;
-  bottom: 22px;
-  left: 0;
-  color: #8b95a1;
-  font-size: 12px;
+  padding-top: 112px;
   text-align: center;
 }
 
+.acw-logo img {
+  display: block;
+  width: 12px;
+  margin: 0 auto;
+}
+
+/* 出风口线 */
+.acw-outlet {
+  margin-top: 4px;
+  border-top: 1px solid var(--acw-border-color);
+}
+
+/* 状态指示灯 */
 .acw-led {
   position: absolute;
-  right: 14px;
-  bottom: 20px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #d9dee7;
+  top: 128px;
+  right: 8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--acw-border-color);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .acw-unit[data-status="on"] .acw-led {
-  background: #38f709;
-  box-shadow: 0 0 10px rgba(56, 247, 9, 0.72);
+  background: var(--acw-led-on);
+  box-shadow: 0 0 6px rgba(56, 247, 9, 0.7);
 }
 
+/* --------------------------------- 显示屏 -------------------------------- */
+.acw-display {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  color: var(--acw-display-color);
+  text-align: right;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.acw-unit[data-status="on"] .acw-display {
+  opacity: 1;
+}
+
+.acw-display-mode {
+  font-size: 14px;
+  text-align: left;
+  line-height: 1;
+}
+
+.acw-display-temp {
+  font-size: 36px;
+  line-height: 1.1;
+}
+
+.acw-digit {
+  font-family: "Digital-7 Mono", "Courier New", monospace;
+}
+
+.acw-display-temp small {
+  font-size: 18px;
+}
+
+.acw-temperature {
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+/* -------------------------------- 能效标签 ------------------------------- */
+.acw-energy-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 50px;
+  height: 70px;
+  padding: 4px;
+  border-radius: 2px;
+  background: #4ea5f5;
+}
+
+.acw-dot-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.acw-dot {
+  display: inline-block;
+  border-radius: 9999px;
+  background: var(--acw-dot-color, #000);
+}
+
+.acw-energy-grades {
+  margin: 4px 0;
+  padding: 2px 8px;
+  background: #fff;
+}
+
+.acw-energy-arrow {
+  display: flex;
+  align-items: center;
+  height: 3px;
+}
+
+.acw-arrow-bar {
+  flex: 0 0 40%;
+  height: 3px;
+  background: green;
+}
+
+.acw-arrow-bar-sm {
+  flex: 0 0 10%;
+  margin-left: auto;
+}
+
+.acw-arrow-tip {
+  width: 0;
+  height: 0;
+  margin: 0 auto;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-left: 4px solid green;
+}
+
+.acw-energy-level {
+  margin-top: 2px;
+  height: 3px;
+}
+
+.acw-energy-detail {
+  margin-bottom: 2px;
+  padding-top: 1px;
+  background: #fff;
+}
+
+.acw-energy-detail-line {
+  height: 0;
+  margin: 1px 0;
+  border-top: 1px solid #000;
+}
+
+/* --------------------------------- 风特效 ------------------------------- */
 .acw-wind {
   display: flex;
   justify-content: center;
-  gap: 58px;
-  height: 56px;
-  margin-top: 14px;
+  margin: 20px 0;
   opacity: 0;
-  transition: opacity 180ms ease;
+  transition: opacity 0.3s ease;
 }
 
 .acw-unit[data-status="on"] .acw-wind {
-  opacity: 0.35;
+  opacity: 0.3;
 }
 
-.acw-wind span {
-  width: 5px;
-  height: 44px;
-  border-radius: 999px;
-  background: #aeb7c1;
+.acw-wind-line {
+  width: 4px;
+  height: 40px;
+  background: var(--acw-wind-color);
 }
 
-.acw-wind span:first-child {
+.acw-wind-line:nth-child(1) {
   transform: rotate(10deg);
 }
 
-.acw-wind span:last-child {
+.acw-wind-line:nth-child(2) {
+  margin: 0 80px;
+}
+
+.acw-wind-line:nth-child(3) {
   transform: rotate(-10deg);
 }
 
+/* --------------------------------- 遥控器 ------------------------------- */
 .acw-remote {
-  display: grid;
-  gap: 10px;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px 0;
 }
 
 .acw-remote-row {
   display: flex;
-  gap: 10px;
-  align-items: center;
 }
 
 .acw-button {
-  min-width: 54px;
-  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 8px;
+  padding: 0;
   border: 0;
-  border-radius: 7px;
-  background: #edf2f7;
-  color: #1f2933;
-  font: inherit;
-  font-size: 13px;
+  border-radius: 50%;
+  background: #fff;
+  color: #555;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
   cursor: pointer;
+  transition: filter 0.15s ease, transform 0.05s ease;
 }
 
 .acw-button:hover {
-  background: #e1e8ef;
+  filter: brightness(0.96);
+}
+
+.acw-button:active {
+  transform: translateY(1px);
 }
 
 .acw-button-cold {
@@ -161,21 +286,20 @@
 }
 
 .acw-button-hot {
-  background: #f59e0b;
+  background: orange;
   color: #fff;
 }
 
 .acw-button-power {
-  background: #16a34a;
+  background: #2e7d32;
   color: #fff;
 }
 
-.acw-button-temp {
-  width: 54px;
-  border-radius: 50%;
-  font-size: 22px;
+.acw-button-power.acw-button-on {
+  background: #d32f2f;
 }
 
+/* -------------------------------- 通知提示 ------------------------------ */
 .acw-notification {
   width: 100%;
   min-height: 38px;
@@ -184,6 +308,7 @@
   background: #edf8f0;
   color: #155724;
   font-size: 13px;
+  text-align: center;
 }
 
 .acw-notification[data-severity="error"] {
