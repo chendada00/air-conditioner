@@ -1,0 +1,87 @@
+{
+  "name": "@air-conditioner/react",
+  "type": "module",
+  "version": "0.1.3",
+  "private": true,
+  "packageManager": "pnpm@10.13.1",
+  "description": "云空调，便携小空调",
+  "author": {
+    "url": "https://www.yunyoujun.cn",
+    "email": "me@yunyoujun.cn",
+    "name": "YunYouJun"
+  },
+  "homepage": "https://ac.yunyoujun.cn/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YunYouJun/air-conditioner"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "pnpm run build:lib",
+    "build:app": "vite build",
+    "build:lib": "tsdown && cp src/lib/style.css dist/style.css",
+    "serve": "vite preview",
+    "lint": "eslint \"**/*.{tsx,ts,js}\"",
+    "lint:fix": "eslint \"**/*.{tsx,ts,js}\" --fix",
+    "typecheck": "tsc --noEmit"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "@air-conditioner/core": "workspace:*",
+    "react-ga": "catalog:",
+    "react-gtm-module": "catalog:",
+    "react-router-dom": "catalog:",
+    "sass": "catalog:",
+    "web-vitals": "catalog:"
+  },
+  "devDependencies": {
+    "@emotion/react": "catalog:",
+    "@emotion/styled": "catalog:",
+    "@iconify-json/ic": "catalog:",
+    "@iconify-json/mdi": "catalog:",
+    "@mui/material": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/react-gtm-module": "catalog:",
+    "@types/react-router-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-transition-group": "catalog:",
+    "tsdown": "catalog:",
+    "unocss": "catalog:",
+    "usehooks-ts": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-pages": "catalog:",
+    "vite-plugin-pwa": "catalog:"
+  }
+}

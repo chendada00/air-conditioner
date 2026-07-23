@@ -13,15 +13,19 @@ Air Conditioner
 </p>
 
 <p align="center">
-云空调，便携小空调，为你的夏日带去清凉！
+
+[云空调](https://ac.yunyoujun.cn)，便携小空调，为你的夏日带去清凉！
+
 </p>
 <br>
 
 > 前世今生：[云空调，便携小空调｜云游君的小站](https://www.yunyoujun.cn/posts/air-conditioner/)
 
-- 裸机[main]：[ac.yunyoujun.cn](https://ac.yunyoujun.cn)
-- 测试机[dev]：[ac.yyj.moe](https://ac.yyj.moe)
-- 样板房：<https://www.yunyoujun.cn/air-conditioner-room/>
+| 仓库 | 类型 | 链接 |
+| --- | --- | --- |
+| 裸机 | main | [ac.yunyoujun.cn](https://ac.yunyoujun.cn) |
+| 测试机 | dev | [ac.yyj.moe](https://ac.yyj.moe) |
+| 样板房 | 空调房 | [https://www.yunyoujun.cn/air-conditioner-room/](https://www.yunyoujun.cn/air-conditioner-room/) |
 
 ## Features
 
@@ -102,7 +106,6 @@ VITE_DISABLE_ADSENSE=true
   - [x] 音效
     - [x] 按钮
     - [x] 工作声
-    - [ ] 接入 [喜马拉雅](https://m.ximalaya.com/sleepaudio/6?mixedTrackIds=331526646&utm_source=smxkt) 更多音效
 - [x] 适应系统的亮暗模式
 
 ## Ref
@@ -114,6 +117,6 @@ VITE_DISABLE_ADSENSE=true
 
 <p align="center">
   <a href="https://sponsors.yunyoujun.cn">
-    <img src='https://fastly.jsdelivr.net/gh/YunYouJun/sponsors/public/sponsors.svg'/>
+    <img src='https://fastly.jsdelivr.net/gh/YunYouJun/sponsors/public/sponsors.svg' alt="Sponsors"/>
   </a>
 </p>
