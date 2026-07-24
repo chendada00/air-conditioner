@@ -2,6 +2,5 @@
   "name": "air-conditioner-vue",
   "installCommand": "npm install -g pnpm@10.13.1 && pnpm install --frozen-lockfile",
   "buildCommand": "pnpm run vue:build",
-  "outputDirectory": "packages/vue/dist-app",
-  "nodeVersion": "22.11.0"
+  "outputDirectory": "packages/vue/dist-app"
 }
